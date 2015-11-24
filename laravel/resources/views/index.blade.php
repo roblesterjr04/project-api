@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('class', 'index fixed hold-transition skin-purple-light sidebar-mini')
+@section('class', 'index fixed hold-transition skin-purple sidebar-mini')
 
 @section('body')
 
@@ -41,10 +41,7 @@
 
     </div><!-- ./wrapper -->
 
-    <!-- jQuery 2.1.4 -->
-    <script src="/assets/AdminLTE-2.3.0/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="/assets/AdminLTE-2.3.0/bootstrap/js/bootstrap.min.js"></script>
+    
     <!-- DataTables -->
     <script src="/assets/AdminLTE-2.3.0/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>

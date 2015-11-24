@@ -1,3 +1,15 @@
+.max-break(@size, @rules) {
+	@media screen and (max-width: @size) {
+		@rules();
+	}
+}
+
+.min-break(@size, @rules) {
+	@media screen and (min-width: @size) {
+		@rules();
+	}
+}
+
 .mobile(@rules) {
 	@media screen and (max-width: 767px) {
 		@rules();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Application;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,8 @@ class ApplicationsController extends Controller
      */
     public function index()
     {
-        //
+        $apps = Application::get();
+        return view('apps', ['addnew'=>'App', 'title'=>'Applications', 'table'=>'apps', 'apps'=>$apps]);
     }
 
     /**
@@ -26,7 +28,7 @@ class ApplicationsController extends Controller
      */
     public function create()
     {
-        //
+        return view('record/application', ['table'=>'apps', 'title'=>'Applications', 'subtitle'=>'Create App']);
     }
 
     /**
@@ -37,7 +39,13 @@ class ApplicationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+	        'a_name' => 'required|max:255',
+	    ]);
+	    $app = new Application();
+        $app->name = $request->a_name;
+        $app->save();
+        return redirect('/apps/'.$app->id);
     }
 
     /**
@@ -59,7 +67,8 @@ class ApplicationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $app = Application::findOrFail($id);
+	    return view('record/application', ['table'=>'apps','application'=>$app, 'title'=>'Applications', 'subtitle'=>'Edit '.$app->name]);
     }
 
     /**
@@ -71,7 +80,13 @@ class ApplicationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+	    $this->validate($request, [
+	        'a_name' => 'required|max:55',
+	    ]);
+        $app = Application::findOrFail($id);
+        $app->name = $request->a_name;
+        $saved = $app->save();
+        return redirect('/apps/'.$id.'?saved='.$saved);
     }
 
     /**
@@ -82,6 +97,7 @@ class ApplicationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Application::findOrFail($id)->delete();
+        return redirect('/apps');
     }
 }

@@ -196,20 +196,20 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="http://www.gravatar.com/avatar/{{ md5($app->request->user()->email) }}" class="user-image" alt="User Image">
+                  <img src="http://www.gravatar.com/avatar/{{ md5($app->request->user()->email) }}?s=50" class="user-image" alt="User Image">
                   <span class="hidden-xs">{{ $app->request->user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="http://www.gravatar.com/avatar/{{ md5($app->request->user()->email) }}" class="img-circle" alt="User Image">
+                    <img src="http://www.gravatar.com/avatar/{{ md5($app->request->user()->email) }}?s=512" class="img-circle" alt="User Image">
                     <p>
                       {{ $app->request->user()->name }} - Administrator
                       <small>Member since {{ date('M. Y', strtotime($app->request->user()->created_at)) }}</small>
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
+                  <!--<li class="user-body">
                     <div class="col-xs-4 text-center">
                       <a href="#">Followers</a>
                     </div>
@@ -219,11 +219,11 @@
                     <div class="col-xs-4 text-center">
                       <a href="#">Friends</a>
                     </div>
-                  </li>
+                  </li>-->
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="/profile" class="btn btn-default btn-flat">Profile</a>
+                      <a href="/users/{{ $app->request->user()->id }}" class="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div class="pull-right">
                       <a href="/auth/logout" class="btn btn-default btn-flat">Sign out</a>

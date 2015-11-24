@@ -33,8 +33,27 @@
                 <li class="{{ Route::current() && Route::current()->uri() == 'updates' ? 'active' : '' }}"><a href="/updates"><i class="fa fa-circle-o"></i> Update</a></li>
               </ul>
             </li>
-            <li class="{{ Route::current() && Route::current()->uri() == 'users' ? 'active' : '' }}">
-            	<a href="/users"><i class="fa fa-users"></i> <span>Users</span></a>
+            <li class="{{ Route::current() && strpos(Route::current()->uri(), 'users') !== false ? 'active' : '' }} treeview">
+            	<a href="/users"><i class="fa fa-users"></i> <span>Users</span> <i class="fa fa-angle-left pull-right"></i></a>
+            	<ul class="treeview-menu">
+	            	<li class="{{ Route::current() && Route::current()->uri() == 'users' ? 'active' : '' }}">
+	            		<a href="/users"><i class="fa fa-circle-o"></i> All Users</a>
+	            	</li>
+	            	<li class="{{ Route::current() && Route::current()->uri() == 'users/create' ? 'active' : '' }}">
+	            		<a href="/users/create"><i class="fa fa-circle-o text-aqua"></i> Add New</a>
+	            	</li>
+            	</ul>
+            </li>
+            <li class="{{ Route::current() && strpos(Route::current()->uri(), 'apps') !== false ? 'active' : '' }} treeview">
+            	<a href="/apps"><i class="fa fa-object-group"></i> <span>Applications</span> <i class="fa fa-angle-left pull-right"></i></a>
+            	<ul class="treeview-menu">
+	            	<li class="{{ Route::current() && Route::current()->uri() == 'apps' ? 'active' : '' }}">
+	            		<a href="/apps"><i class="fa fa-circle-o"></i> All Apps</a>
+	            	</li>
+	            	<li class="{{ Route::current() && Route::current()->uri() == 'apps/create' ? 'active' : '' }}">
+	            		<a href="/apps/create"><i class="fa fa-circle-o text-aqua"></i> Add New</a>
+	            	</li>
+            	</ul>
             </li>
             <!--<li class="treeview">
               <a href="#">

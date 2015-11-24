@@ -34,3 +34,8 @@ Route::delete('users/{id}', 'UsersController@destroy');
 // Application Routes...
 
 Route::get('apps', 'ApplicationsController@index');
+Route::get('apps/create', 'ApplicationsController@create');
+Route::get('apps/{id}', 'ApplicationsController@edit');
+Route::post('apps/create', 'ApplicationsController@store');
+Route::post('apps/{id}', 'ApplicationsController@update');
+route::delete('apps/{id}', 'ApplicationsController@destroy');

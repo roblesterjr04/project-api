@@ -19,7 +19,7 @@ class UsersController extends Controller
     public function index()
     {
 	    $users = User::get();
-        return view('users', ['title'=>'Users', 'users'=>$users]);
+	    return view('users', ['title'=>'Users', 'addnew'=>'User', 'users'=>$users, 'table'=>'users']);
     }
 
     /**
@@ -41,13 +41,14 @@ class UsersController extends Controller
     public function store(Request $request)
     {
 	    $this->validate($request, [
-	        'name' => 'required|max:255',
-	        'email' => 'required|max:255',
-	        'password' => 'required|max:60'
+	        'u_name' => 'required|max:255',
+	        'u_email' => 'required|max:255',
+	        'u_password' => 'required|max:60'
 	    ]);
 	    $password = \Hash::make($request->u_password);
         $user = new User();
         $user->email = $request->u_email;
+        $user->phone = $request->phone;
         $user->name = $request->u_name;
         $user->password = $password;
         $user->save();
@@ -73,8 +74,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-	    $user = User::where(['id'=>$id])->first();
-	    return view('record/user', ['user'=>$user, 'title'=>'Users', 'subtitle'=>'Edit User']);
+	    $user = User::findOrFail($id);
+	    return view('record/user', ['user'=>$user, 'title'=>'Users', 'subtitle'=>'Edit '.$user->name]);
     }
 
     /**
@@ -86,10 +87,14 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-	    //$user = User::where(['id'=>$id])->first();
+	    $this->validate($request, [
+	        'u_name' => 'required|max:255',
+	        'u_email' => 'required|max:255',
+	    ]);
 	    $user = User::findOrFail($id);
 	    $user->name = $request->u_name;
 	    $user->email = $request->u_email;
+	    $user->phone = $request->phone;
 	    if ($request->u_password != '') {
 		    $password = \Hash::make($request->u_password);
 		    $user->password = $password;

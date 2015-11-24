@@ -1,24 +1,24 @@
-@extends('index')
+@extends('blocks.form')
 
-@section('content')
+@section('form')
 
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1>
-            {{ $title or '&nbsp;' }}
-            <small>{{ $subtitle or '&nbsp;' }}</small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="/users">Users</a></li>
-            <li class="active">{{ $subtitle or '&nbsp;' }}</li>
-          </ol>
-        </section>
-
-        <!-- Main content -->
-        <section class="content">
-	      <div class="row">
-		      <div class="col-md-6">
+        <div class="row">
+		      <div class="col-sm-12 col-md-4 col-md-push-8">
+			      <div class="row">
+				      @if (isset($user))
+				      <div class="col-xs-6 col-md-12">
+					  	
+					  	<img style="max-width: 100%; display: block; margin: 0 auto;" src="http://www.gravatar.com/avatar/{{ md5($user->email) }}?s=200" class="img-circle" alt="User Image">
+					  	
+					  	<a href="https://en.gravatar.com/" target="_blank" class="btn btn-link btn-block" style="margin: 15px  auto;">Update Profile Image</a>
+				      </div>
+				      <div class="col-xs-6 col-md-12 text-center">
+					      <p>Member Since: {{ date('l, M. j, Y', strtotime($user->created_at)) }}</p>
+				      </div>
+				      @endif
+			      </div>
+		      </div>
+		      <div class="col-sm-12 col-md-8 col-md-pull-4">
 	      <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">{{ isset($user) ? 'Edit' : 'Add' }} User</h3>
@@ -31,19 +31,25 @@
                     <div class="form-group">
                       <label for="u_email" class="col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
-                        <input value="{{ isset($user) ? $user->email : old('email') }}" type="email" class="form-control" name="u_email" placeholder="Email">
+                        <input value="{{ isset($user) ? $user->email : old('u_email') }}" type="email" class="form-control" name="u_email" placeholder="Email">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="u_name" class="col-sm-2 control-label">Name</label>
                       <div class="col-sm-10">
-                        <input value="{{ isset($user) ? $user->name : old('name') }}" type="text" class="form-control" name="u_name" placeholder="Full Name">
+                        <input value="{{ isset($user) ? $user->name : old('u_name') }}" type="text" class="form-control" name="u_name" placeholder="Full Name">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="phone" class="col-sm-2 control-label">Phone</label>
+                      <div class="col-sm-10">
+                        <input value="{{ isset($user) ? $user->phone : old('phone') }}" type="number" class="form-control" name="phone" placeholder="Phone Number">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="u_password" class="col-sm-2 control-label">Password</label>
                       <div class="col-sm-10">
-                        <input value="{{ isset($user) ? '' : old('password') }}" type="password" class="form-control" name="u_password" placeholder="New Password">
+                        <input value="{{ isset($user) ? '' : old('u_password') }}" type="password" class="form-control" name="u_password" placeholder="New Password">
                       </div>
                     </div>
                     <!--<div class="form-group">
@@ -69,5 +75,5 @@
               </div>
 		      </div>
 	      </div>
-        </section><!-- /.content -->
+        
 @endsection
