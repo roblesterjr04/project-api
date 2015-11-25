@@ -32,10 +32,17 @@ Route::post('users/{id}', 'UsersController@update');
 Route::delete('users/{id}', 'UsersController@destroy');
 
 // Application Routes...
-
 Route::get('apps', 'ApplicationsController@index');
 Route::get('apps/create', 'ApplicationsController@create');
 Route::get('apps/{id}', 'ApplicationsController@edit');
-Route::post('apps/create', 'ApplicationsController@store');
+Route::post('apps/create', 'ApplicationsController@update');
 Route::post('apps/{id}', 'ApplicationsController@update');
 route::delete('apps/{id}', 'ApplicationsController@destroy');
+
+// Object Routes...
+Route::get('objects', 'ObjectsController@index');
+Route::get('objects/create', 'ObjectsController@create');
+Route::get('objects/{id}', 'ObjectsController@edit');
+Route::post('objects/create', 'ObjectsController@store');
+Route::post('objects/{id}', 'ObjectsController@update');
+route::delete('objects/{id}', 'ObjectsController@destroy');

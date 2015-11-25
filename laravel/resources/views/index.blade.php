@@ -62,6 +62,26 @@
     <!--<script src="/assets/AdminLTE-2.3.0/dist/js/pages/dashboard2.js"></script>-->
     <!-- AdminLTE for demo purposes -->
     <script src="/assets/AdminLTE-2.3.0/dist/js/demo.js"></script>
+    
+    <script src="/assets/AdminLTE-2.3.0/plugins/iCheck/icheck.min.js"></script>
+    
+    @if (isset($_GET['saved']))
+    	<script>
+	    	BootstrapDialog.show({
+		    	message: '{{ isset($table) ? ucwords(rtrim($table, 's')) : '' }} Saved!',
+		    	type: BootstrapDialog.TYPE_SUCCESS,
+		    	title: 'Saved',
+		    	buttons: [
+			    	{
+				    	label: 'Ok',
+				    	action: function(dialog) {
+					    	dialog.close();
+				    	}
+			    	}
+		    	]
+	    	});
+	    </script>
+    @endif
 
 @yield('footer')
 

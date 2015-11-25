@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Application;
+use App\Object;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -28,7 +29,8 @@ class ApplicationsController extends Controller
      */
     public function create()
     {
-        return view('record/application', ['table'=>'apps', 'title'=>'Applications', 'subtitle'=>'Create App']);
+	    $objects = Object::get();
+        return view('record/application', ['table'=>'apps', 'title'=>'Applications', 'subtitle'=>'Create App', 'objects'=>$objects]);
     }
 
     /**
@@ -37,7 +39,7 @@ class ApplicationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
         $this->validate($request, [
 	        'a_name' => 'required|max:255',
@@ -46,7 +48,7 @@ class ApplicationsController extends Controller
         $app->name = $request->a_name;
         $app->save();
         return redirect('/apps/'.$app->id);
-    }
+    }*/
 
     /**
      * Display the specified resource.
@@ -68,7 +70,21 @@ class ApplicationsController extends Controller
     public function edit($id)
     {
         $app = Application::findOrFail($id);
-	    return view('record/application', ['table'=>'apps','application'=>$app, 'title'=>'Applications', 'subtitle'=>'Edit '.$app->name]);
+        $objects = Object::get();
+        $objects_perms = [];
+        $perms = $app->objects;
+        if ($perms) {
+	        $perms = unserialize($perms);
+	        foreach ($objects as $object) {
+		        $oid = $object->id;
+		        $object->permissions = $perms['OBJ'.$oid];
+	        }
+        }
+	    return view('record/application', ['table'=>'apps','application'=>$app, 'title'=>'Applications', 'subtitle'=>'Edit '.$app->name, 'objects'=>$objects]);
+    }
+    
+    private function obj_perms($perms) {
+	    
     }
 
     /**
@@ -78,14 +94,17 @@ class ApplicationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id = false)
     {
 	    $this->validate($request, [
 	        'a_name' => 'required|max:55',
 	    ]);
-        $app = Application::findOrFail($id);
+        if ($id) $app = Application::findOrFail($id);
+        else $app = new Application();
         $app->name = $request->a_name;
+        $app->objects = serialize($request->objects);
         $saved = $app->save();
+        if (!$id) $id = $app->id;
         return redirect('/apps/'.$id.'?saved='.$saved);
     }
 

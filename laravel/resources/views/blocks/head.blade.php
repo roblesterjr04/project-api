@@ -3,6 +3,7 @@
 <link href="/assets/css/boot.css" rel="stylesheet" type="text/css">
 <link href="/assets/css/admin.css" rel="stylesheet" type="text/css">
 <link href="/assets/css/site.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/assets/AdminLTE-2.3.0/plugins/iCheck/all.css">
 <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">

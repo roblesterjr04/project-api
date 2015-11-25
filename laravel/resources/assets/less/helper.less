@@ -47,7 +47,13 @@
 }
 
 .print(@rules) {
-	@media print {
+	@media print only {
+		@rules();
+	}
+}
+
+.not-print(@rules) {
+	@media screen only {
 		@rules();
 	}
 }

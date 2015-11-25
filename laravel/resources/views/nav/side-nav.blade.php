@@ -55,6 +55,17 @@
 	            	</li>
             	</ul>
             </li>
+            <li class="{{ Route::current() && strpos(Route::current()->uri(), 'objects') !== false ? 'active' : '' }} treeview">
+            	<a href="/objects"><i class="fa fa-cubes"></i> <span>Objects</span> <i class="fa fa-angle-left pull-right"></i></a>
+            	<ul class="treeview-menu">
+	            	<li class="{{ Route::current() && Route::current()->uri() == 'objects' ? 'active' : '' }}">
+	            		<a href="/objects"><i class="fa fa-circle-o"></i> All objects</a>
+	            	</li>
+	            	<li class="{{ Route::current() && Route::current()->uri() == 'apps/create' ? 'active' : '' }}">
+	            		<a href="/objects/create"><i class="fa fa-circle-o text-aqua"></i> Add New</a>
+	            	</li>
+            	</ul>
+            </li>
             <!--<li class="treeview">
               <a href="#">
                 <i class="fa fa-files-o"></i>
