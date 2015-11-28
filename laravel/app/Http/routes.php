@@ -34,15 +34,26 @@ Route::delete('users/{id}', 'UsersController@destroy');
 // Application Routes...
 Route::get('apps', 'ApplicationsController@index');
 Route::get('apps/create', 'ApplicationsController@create');
+Route::post('apps/newkey', 'ApplicationsController@app_key');
 Route::get('apps/{id}', 'ApplicationsController@edit');
 Route::post('apps/create', 'ApplicationsController@update');
 Route::post('apps/{id}', 'ApplicationsController@update');
-route::delete('apps/{id}', 'ApplicationsController@destroy');
+Route::delete('apps/{id}', 'ApplicationsController@destroy');
+
 
 // Object Routes...
 Route::get('objects', 'ObjectsController@index');
 Route::get('objects/create', 'ObjectsController@create');
 Route::get('objects/{id}', 'ObjectsController@edit');
-Route::post('objects/create', 'ObjectsController@store');
+Route::post('objects/create', 'ObjectsController@update');
 Route::post('objects/{id}', 'ObjectsController@update');
-route::delete('objects/{id}', 'ObjectsController@destroy');
+Route::delete('objects/{id}', 'ObjectsController@destroy');
+
+// API Routes...
+Route::get('api/{resource}', 'APIController@getResource');
+Route::get('api/{resource}/{id}', 'APIController@getResource');
+Route::put('api/{resource}/{id}', 'APIController@updateResource');
+Route::post('api/{resource}', 'APIController@createResource');
+Route::delete('api/{resource}/{id}', 'APIController@destroyResource');
+Route::post('api/token', 'APIController@oauthToken');
+Route::post('api/me', 'APIController@oauthMe');

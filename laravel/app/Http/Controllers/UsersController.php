@@ -114,4 +114,9 @@ class UsersController extends Controller
 	    User::findOrFail($id)->delete();
         return redirect('/users');
     }
+    
+    public function __construct()
+   {
+      $this->middleware('auth');
+   }
 }

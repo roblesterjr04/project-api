@@ -28,7 +28,7 @@ class ObjectsController extends Controller
      */
     public function create()
     {
-        //
+        return view('record/object', ['table'=>'objects', 'title'=>'Objects', 'subtitle'=>'Create Object']);
     }
 
     /**
@@ -61,7 +61,9 @@ class ObjectsController extends Controller
      */
     public function edit($id)
     {
-        //
+	    $object = Object::findOrFail($id);
+	    $data = unserialize($object->data);
+        return view('record/object', ['table'=>'objects','object'=>$object, 'title'=>'Objects', 'subtitle'=>'Edit '.$object->name, 'data'=>$data]);
     }
 
     /**
@@ -71,9 +73,17 @@ class ObjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id = false)
     {
-        //
+        $this->validate($request, [
+	        'a_name' => 'required|max:55',
+	    ]);
+	    if ($id) $object = Object::findOrFail($id);
+	    else $object = new Object();
+	    $object->name = $request->a_name;
+	    $saved = $object->save();
+	    if (!$id) $id = $object->id;
+	    return redirect('/objects/'.$id.'?saved='.$saved);
     }
 
     /**
@@ -84,6 +94,11 @@ class ObjectsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Object::findOrFail($id)->delete();
+        return redirect('/objects');
     }
+    public function __construct()
+   {
+      $this->middleware('auth');
+   }
 }

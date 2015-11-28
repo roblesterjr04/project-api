@@ -70,6 +70,8 @@ class ApplicationsController extends Controller
     public function edit($id)
     {
         $app = Application::findOrFail($id);
+        $app->key = $app->key ?: $this->app_key();
+        $app->private = $app->private ?: $this->app_key();
         $objects = Object::get();
         $objects_perms = [];
         $perms = $app->objects;
@@ -77,14 +79,15 @@ class ApplicationsController extends Controller
 	        $perms = unserialize($perms);
 	        foreach ($objects as $object) {
 		        $oid = $object->id;
-		        $object->permissions = $perms['OBJ'.$oid];
+		        if (isset($perms['OBJ'.$oid])) $object->permissions = $perms['OBJ'.$oid];
 	        }
         }
 	    return view('record/application', ['table'=>'apps','application'=>$app, 'title'=>'Applications', 'subtitle'=>'Edit '.$app->name, 'objects'=>$objects]);
     }
     
-    private function obj_perms($perms) {
-	    
+    public function app_key() {
+	    $full = \Hash::make(date('u') . time() . date('aeYMmldi'));
+	    return substr(base64_encode($full), 8, 32);
     }
 
     /**
@@ -102,6 +105,8 @@ class ApplicationsController extends Controller
         if ($id) $app = Application::findOrFail($id);
         else $app = new Application();
         $app->name = $request->a_name;
+        $app->key = $request->a_key;
+        $app->private = $request->a_secret;
         $app->objects = serialize($request->objects);
         $saved = $app->save();
         if (!$id) $id = $app->id;
@@ -119,4 +124,9 @@ class ApplicationsController extends Controller
         Application::findOrFail($id)->delete();
         return redirect('/apps');
     }
+    
+    public function __construct()
+   {
+      $this->middleware('auth');
+   }
 }
